@@ -36,13 +36,21 @@ def index():
         if not long_url:
             return 'Invalid URL', 400
 
+        db = get_db()
+
+        # Check if the long URL already exists in the database
+        existing_row = db.execute('SELECT short_url FROM urls WHERE long_url = ?', (long_url,)).fetchone()
+        if existing_row:
+            existing_short_url = existing_row[0]
+            return render_template('index.html', short_url=request.url_root + existing_short_url, already_shortened=True)
+
         short_url = generate_short_url()
 
-        db = get_db()
+        # Insert the short URL and long URL into the database
         db.execute('INSERT INTO urls (short_url, long_url) VALUES (?, ?)', (short_url, long_url))
         db.commit()
 
-        return render_template('index.html', short_url=request.url_root + short_url)
+        return render_template('index.html', short_url=request.url_root + short_url, already_shortened=False)
 
     return render_template('index.html', short_url=None)
 

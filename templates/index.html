@@ -5,14 +5,19 @@
 </head>
 <body>
     <h1>URL Shortener</h1>
-    <form action="/" method="post">
-        <label for="url">Enter your URL:</label>
+    <form method="post">
+        <label for="url">Enter a URL:</label>
         <input type="text" name="url" id="url" required>
         <button type="submit">Shorten</button>
     </form>
-    
     {% if short_url %}
-    <p>Shortened URL: <a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+        {% if already_shortened %}
+            <p>This URL is already shortened:</p>
+            <a href="{{ short_url }}">{{ short_url }}</a>
+        {% else %}
+            <p>Shortened URL:</p>
+            <a href="{{ short_url }}">{{ short_url }}</a>
+        {% endif %}
     {% endif %}
 </body>
 </html>
