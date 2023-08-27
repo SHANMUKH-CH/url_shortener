@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: url-shortener-deployment
 spec:
-  replicas: 1  # Number of replicas/pods
+  replicas: 1 # Number of replicas/pods
   selector:
     matchLabels:
       app: url-shortener
@@ -15,5 +15,9 @@ spec:
       containers:
         - name: url-shortener-app
           image: shanumbra/url_shortener:latest
+          resources:
+            limits:
+              cpu: "0.01"
+              memory: "50Mi"
           ports:
             - containerPort: 5000
