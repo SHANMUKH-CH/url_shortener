@@ -59,5 +59,5 @@ def redirect_to_long_url(short_url):
 
 if __name__ == '__main__':
     init_db()
-    app.debug = True
+    # app.debug = True
     app.run(host='0.0.0.0', port=5000)
