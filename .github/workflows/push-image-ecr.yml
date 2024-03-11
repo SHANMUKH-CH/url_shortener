@@ -1,9 +1,10 @@
+#https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 name: Docker Push to ECR
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - 1
 
 jobs:
   build-and-push:
